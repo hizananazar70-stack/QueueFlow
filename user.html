@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Panel | QueueFlow</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      margin: 0;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h1 { color: #2d3436; margin-bottom: 30px; font-weight: 700; }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 2px solid #eee;
+      border-radius: 12px;
+      box-sizing: border-box;
+      font-size: 16px;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      border-radius: 12px;
+      background-color: #28a745;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    button:hover { background-color: #218838; transform: translateY(-2px); }
+
+    /* --- Custom Elegant Popup Styles --- */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none; /* Initially Hidden */
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      animation: popIn 0.3s ease-out;
+      max-width: 300px;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-content h2 { color: #28a745; margin-top: 0; }
+    .modal-content p { color: #636e72; font-size: 1.1rem; }
+    
+    .btn-close {
+      margin-top: 20px;
+      background-color: #007bff;
+    }
+
+    .back-link { display: inline-block; margin-top: 20px; color: #636e72; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Join Queue</h1>
+  <input type="text" id="userName" placeholder="Enter Your Name">
+  <button onclick="showCustomPopup()">Get My Token</button>
+  <a href="index.html" class="back-link">← Back to Dashboard</a>
+</div>
+
+<div class="modal-overlay" id="tokenModal">
+  <div class="modal-content">
+    <h2>Success!</h2>
+    <p id="popupMessage"></p>
+    <button class="btn-close" onclick="closePopup()">OK</button>
+  </div>
+</div>
+
+<script>
+  function showCustomPopup() {
+    const name = document.getElementById('userName').value;
+    if(name) {
+      document.getElementById('popupMessage').innerHTML = `Hi <b>${name}</b>,<br>Your Token Number is <b>105</b>`;
+      document.getElementById('tokenModal').style.display = 'flex';
+    } else {
+      alert("Please enter your name!");
+    }
+  }
+
+  function closePopup() {
+    document.getElementById('tokenModal').style.display = 'none';
+    window.location.href = "index.html";
+  }
+</script>
+
+</body>
+</html>

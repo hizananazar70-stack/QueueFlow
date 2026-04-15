@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | QueueFlow</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      margin: 0;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h1 { color: #2d3436; margin-bottom: 30px; font-weight: 700; }
+
+    /* Button styles to match User Panel */
+    .btn-call {
+      width: 100%;
+      padding: 15px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      border-radius: 12px;
+      background-color: #d63031; /* Calling next person - Red color */
+      color: white;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn-call:hover { background-color: #c0392b; transform: translateY(-2px); }
+
+    .back-link { 
+      display: inline-block; 
+      margin-top: 25px; 
+      color: #636e72; 
+      text-decoration: none; 
+      font-size: 14px;
+    }
+
+    /* --- Custom Elegant Popup Styles (Same as User Panel) --- */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none; /* Initially Hidden */
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      animation: popIn 0.3s ease-out;
+      max-width: 320px;
+      width: 80%;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-content h2 { color: #0984e3; margin-top: 0; }
+    .modal-content p { color: #636e72; font-size: 1.1rem; line-height: 1.5; }
+    
+    .btn-ok {
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-ok:hover { background-color: #0056b3; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Admin Panel</h1>
+  <button class="btn-call" onclick="callNext()">Call Next Token</button>
+  <br>
+  <a href="index.html" class="back-link">← Back to Dashboard</a>
+</div>
+
+<div class="modal-overlay" id="adminModal">
+  <div class="modal-content">
+    <h2>Notice</h2>
+    <p id="adminPopupMessage"></p>
+    <button class="btn-ok" onclick="closeAdminPopup()">OK</button>
+  </div>
+</div>
+
+<script>
+  function callNext() {
+    // Ivide ningalkku logic add cheyyam (e.g., fetching next token from database)
+    const nextToken = "105"; 
+    
+    // Popup message set cheyyunnu
+    document.getElementById('adminPopupMessage').innerHTML = `Calling Next Person...<br><b>Token Number: ${nextToken}</b>`;
+    
+    // Popup show cheyyunnu
+    document.getElementById('adminModal').style.display = 'flex';
+  }
+
+  function closeAdminPopup() {
+    document.getElementById('adminModal').style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
