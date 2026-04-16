@@ -1,228 +1,331 @@
 <!DOCTYPE html>
-
-<html lang="en">
-
+<html lang="en"></html>
 <head>
-
-  <meta charset="UTF-8">
-
+ <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>QueueFlow | Digital Queue System</title>
-
+ <title>QueueFlow | Digital Queue System</title>
   <style>
+
+
 
    
 
+
+
     body {
+
+
 
       font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
+
+
       text-align: center;
+
+
 
       margin: 0;
 
+
+
       padding: 0;
+
+
 
       background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 
+
+
       display: flex;
+
+
 
       justify-content: center;
 
+
+
       align-items: center;
+
+
 
       height: 100vh;
 
+
+
     }
+
+
+
+
 
 
 
     .container {
 
+
+
       background-color: white;
+
+
 
       padding: 50px;
 
+
+
       border-radius: 20px;
+
+
 
       box-shadow: 0 15px 35px rgba(0,0,0,0.1);
 
+
+
       width: 90%;
+
+
 
       max-width: 450px;
 
+
+
     }
+
+
+
+
 
 
 
     h1 {
 
+
+
       color: #2d3436;
+
+
 
       font-size: 2.5rem;
 
+
+
       margin-bottom: 10px;
+
+
 
       font-weight: 700;
 
+
+
     }
+
+
+
+
 
 
 
     p {
 
+
+
       color: #636e72;
+
+
 
       margin-bottom: 40px;
 
+
+
       font-size: 1.1rem;
 
+
+
     }
+
+
+
+
 
 
 
     .button-group {
 
+
+
       display: flex;
+
+
 
       flex-direction: column;
 
+
+
       gap: 15px;
 
+
+
     }
+
+
+
+
 
 
 
     button {
 
+
+
       padding: 16px 25px;
+
+
 
       font-size: 18px;
 
+
+
       font-weight: 600;
+
+
 
       cursor: pointer;
 
+
+
       border: none;
+
+
 
       border-radius: 12px;
 
+
+
       background-color: #007bff;
+
+
 
       color: white;
 
+
+
       transition: all 0.3s ease;
+
+
 
       box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
 
+
+
     }
+
+
+
+
 
 
 
     button:hover {
 
+
+
       background-color: #0056b3;
+
+
 
       transform: translateY(-3px);
 
+
+
       box-shadow: 0 8px 15px rgba(0, 123, 255, 0.3);
+
+
 
     }
 
 
 
-    
+
+
+
+
+   
+
+
 
     .btn-user { background-color: #007bff; }
 
+
+
     .btn-display { background-color: #28a745; box-shadow: 0 4px 6px rgba(40, 167, 69, 0.2); }
+
+
 
     .btn-display:hover { background-color: #218838; box-shadow: 0 8px 15px rgba(40, 167, 69, 0.3); }
 
 
 
+
+
+
+
     .btn-admin { background-color: #6c757d; box-shadow: 0 4px 6px rgba(108, 117, 125, 0.2); }
+
+
 
     .btn-admin:hover { background-color: #5a6268; box-shadow: 0 8px 15px rgba(108, 117, 125, 0.3); }
 
 
 
+
+
+
+
     footer {
+
+
 
       margin-top: 30px;
 
+
+
       font-size: 0.9rem;
+
+
 
       color: #b2bec3;
 
+
+
     }
 
+
+
   </style>
-
 </head>
-
 <body>
-
-
-
 <div class="container">
-
   <h1>QueueFlow</h1>
-
   <p>Your Digital Waiting Room</p>
-
-
-
   <div class="button-group">
-
     <button class="btn-user" onclick="goToUser()">User Panel</button>
-
     <button class="btn-display" onclick="goToDisplay()">Display Screen</button>
-
     <button class="btn-admin" onclick="goToAdmin()">Admin Panel</button>
-
   </div>
-
-
-
   <footer>&copy; 2026 QueueFlow Pro</footer>
-
 </div>
-
-
-
 <script>
- 
-  
-
   function goToUser() {
-
     window.location.href = "user.html";
-
   }
-
-
-
   function goToDisplay() {
-
     window.location.href = "display.html";
-
   }
-
-
-
   function goToAdmin() {
-
     window.location.href = "admin.html";
-
   }
-
 </script>
-
-
-
 </body>
-
 </html>
+
+
 
