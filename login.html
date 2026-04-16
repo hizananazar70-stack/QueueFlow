@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login</title>
+  <title>QueueFlow Login</title>
 
   <style>
     body {
@@ -12,6 +12,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      margin: 0;
     }
 
     .login-box {
@@ -57,7 +58,6 @@
 
     button:hover {
       background: #6a1b9a;
-      transform: translateY(-1px);
     }
 
     #message {
@@ -67,8 +67,14 @@
 
     .success { color: green; }
     .error { color: red; }
-
   </style>
+
+  <script>
+    
+    if(localStorage.getItem("isLoggedIn") === "true") {
+      window.location.href = "index.html";
+    }
+  </script>
 </head>
 
 <body>
@@ -95,14 +101,23 @@
       msg.innerText = "Admin Login Successful";
       msg.className = "success";
 
+      
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("role", "admin");
+
       setTimeout(() => {
         window.location.href = "index.html";
       }, 1000);
 
     } 
     else if(user === "user" && pass === "1234") {
+
       msg.innerText = "User Login Successful";
       msg.className = "success";
+
+      
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("role", "user");
 
       setTimeout(() => {
         window.location.href = "index.html";
