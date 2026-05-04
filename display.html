@@ -6,44 +6,51 @@
 
 <style>
 body {
-  font-family:'Segoe UI';
-  text-align:center;
-  background:#121212;
-  color:white;
-  margin:0;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  background-color: #121212;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Back Button */
+.back {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: #888;
+  text-decoration: none;
+  font-size: 14px;
+}
+.back:hover { color: white; }
+
+h1 {
+  font-size: 2.5rem;
+  color: #aaa;
 }
 
 .token-box {
-  background:#1e1e1e;
-  padding:40px 80px;
-  border-radius:20px;
+  background: #1e1e1e;
+  padding: 40px 80px;
+  border-radius: 25px;
+  box-shadow: 0 0 40px rgba(0, 123, 255, 0.2);
 }
 
 .token {
-  font-size:150px;
-  color:#007bff;
-  margin:0;
+  font-size: 180px;
+  color: #007bff;
+  margin: 0;
 }
 
 .info {
-  margin-top:15px;
-  color:#aaa;
-}
-
-.back {
-  position:absolute;
-  top:20px;
-  left:20px;
-  color:#888;
-  text-decoration:none;
-}
-.back:hover {
-  color:white;
+  margin-top: 20px;
+  font-size: 18px;
+  color: #ccc;
 }
 </style>
 </head>
@@ -56,45 +63,44 @@ body {
 
 <div class="token-box">
   <p>NOW SERVING</p>
-  <div id="token" class="token">100</div>
+  <p id="token" class="token">100</p>
 
   <div class="info">
-    <p id="calledTime"></p>
-    <p id="expectedTime"></p>
+    <p id="calledTime">Called At: --</p>
+    <p id="expectedTime">Estimated Wait Time: --</p>
   </div>
 </div>
 
 <script>
 function loadData() {
-  let token = localStorage.getItem("currentToken") || 100;
-  let time = localStorage.getItem("tokenTime");
 
-  document.getElementById("token").innerText = token;
+  let currentToken = parseInt(localStorage.getItem("currentToken")) || 100;
+  let lastToken = parseInt(localStorage.getItem("lastToken")) || currentToken;
 
-  if (time) {
-    document.getElementById("calledTime").innerText =
-      "Called At: " + time;
+ 
+  document.getElementById("token").innerText = currentToken;
 
-    
-    let calledDate = new Date();
-    let parts = time.split(":");
+ 
+  let calledTime = localStorage.getItem("tokenTime") || "--";
+  document.getElementById("calledTime").innerText =
+    "Called At: " + calledTime;
 
-    calledDate.setHours(parts[0]);
-    calledDate.setMinutes(parts[1]);
-    calledDate.setSeconds(parts[2]);
 
-    
-    calledDate.setMinutes(calledDate.getMinutes() + 2);
+  let remaining = lastToken - currentToken;
 
-    let expected = calledDate.toLocaleTimeString();
+  let serviceTimePerToken = 2; 
 
+  let waitTime = remaining * serviceTimePerToken;
+
+  if (remaining <= 0) {
     document.getElementById("expectedTime").innerText =
-      "Next Token Expected At: " + expected;
+      "Estimated Wait Time: No Waiting";
   } else {
-    document.getElementById("calledTime").innerText = "--";
-    document.getElementById("expectedTime").innerText = "--";
+    document.getElementById("expectedTime").innerText =
+      "Estimated Wait Time: " + waitTime + " minutes";
   }
 }
+
 
 setInterval(loadData, 1000);
 loadData();
