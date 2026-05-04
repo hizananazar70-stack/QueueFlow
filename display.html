@@ -8,19 +8,49 @@
 body {
   font-family:'Segoe UI';
   text-align:center;
-  background:#121212;color:white;
-  display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;
+  background:#121212;
+  color:white;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
 }
+
 .token-box {
-  background:#1e1e1e;padding:40px 80px;border-radius:20px;
+  background:#1e1e1e;
+  padding:40px 80px;
+  border-radius:20px;
 }
+
 .token {
-  font-size:150px;color:#007bff;
+  font-size:150px;
+  color:#007bff;
+  margin:0;
+}
+
+.info {
+  margin-top:15px;
+  color:#aaa;
+}
+
+.back {
+  position:absolute;
+  top:20px;
+  left:20px;
+  color:#888;
+  text-decoration:none;
+}
+.back:hover {
+  color:white;
 }
 </style>
 </head>
 
 <body>
+
+<a href="index.html" class="back">← Back</a>
 
 <h1>Status Board</h1>
 
@@ -28,33 +58,46 @@ body {
   <p>NOW SERVING</p>
   <div id="token" class="token">100</div>
 
-  <p id="time"></p>
-  <p id="currentTime"></p>
+  <div class="info">
+    <p id="calledTime"></p>
+    <p id="expectedTime"></p>
+  </div>
 </div>
 
 <script>
 function loadData() {
   let token = localStorage.getItem("currentToken") || 100;
-  let time = localStorage.getItem("tokenTime") || "--";
+  let time = localStorage.getItem("tokenTime");
 
   document.getElementById("token").innerText = token;
-  document.getElementById("time").innerText =
-    "Token Called At: " + time;
+
+  if (time) {
+    document.getElementById("calledTime").innerText =
+      "Called At: " + time;
+
+    
+    let calledDate = new Date();
+    let parts = time.split(":");
+
+    calledDate.setHours(parts[0]);
+    calledDate.setMinutes(parts[1]);
+    calledDate.setSeconds(parts[2]);
+
+    
+    calledDate.setMinutes(calledDate.getMinutes() + 2);
+
+    let expected = calledDate.toLocaleTimeString();
+
+    document.getElementById("expectedTime").innerText =
+      "Next Token Expected At: " + expected;
+  } else {
+    document.getElementById("calledTime").innerText = "--";
+    document.getElementById("expectedTime").innerText = "--";
+  }
 }
 
-function updateClock() {
-  let now = new Date();
-  document.getElementById("currentTime").innerText =
-    "Current Time: " + now.toLocaleTimeString();
-}
-
-setInterval(()=>{
-  loadData();
-  updateClock();
-},1000);
-
+setInterval(loadData, 1000);
 loadData();
-updateClock();
 </script>
 
 </body>
