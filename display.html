@@ -2,120 +2,59 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Live Display | QueueFlow</title>
+<title>Display | QueueFlow</title>
 
 <style>
 body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  text-align: center;
-  margin: 0;
-  background-color: #121212;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  font-family:'Segoe UI';
+  text-align:center;
+  background:#121212;color:white;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;
 }
-
-h1 {
-  font-size: 2.5rem;
-  letter-spacing: 3px;
-  color: #888;
-  margin-bottom: 10px;
+.token-box {
+  background:#1e1e1e;padding:40px 80px;border-radius:20px;
 }
-
-.token-container {
-  background: #1e1e1e;
-  border: 3px solid #007bff;
-  border-radius: 30px;
-  padding: 40px 80px;
-  box-shadow: 0 0 50px rgba(0, 123, 255, 0.2);
-}
-
-.now-serving {
-  font-size: 22px;
-  color: #777;
-}
-
-.token-number {
-  font-size: 180px;
-  font-weight: 900;
-  color: #007bff;
-  margin: 0;
-}
-
-.time-info {
-  margin-top: 15px;
-  color: #aaa;
-  font-size: 18px;
-}
-
-.extra-info {
-  margin-top: 20px;
-  font-size: 18px;
-  color: #ccc;
+.token {
+  font-size:150px;color:#007bff;
 }
 </style>
-
 </head>
 
 <body>
 
 <h1>Status Board</h1>
 
-<div class="token-container">
-  <div class="now-serving">NOW SERVING</div>
-  <p id="token" class="token-number">101</p>
+<div class="token-box">
+  <p>NOW SERVING</p>
+  <div id="token" class="token">100</div>
 
-  <div class="time-info">
-    <p id="currentTime"></p>
-    <p id="tokenTime"></p>
-  </div>
-
-  <div class="extra-info">
-    <p id="nextTokens"></p>
-    <p id="waiting"></p>
-  </div>
+  <p id="time"></p>
+  <p id="currentTime"></p>
 </div>
 
 <script>
-let currentToken = 101;
+function loadData() {
+  let token = localStorage.getItem("currentToken") || 100;
+  let time = localStorage.getItem("tokenTime") || "--";
 
-// Update live clock
+  document.getElementById("token").innerText = token;
+  document.getElementById("time").innerText =
+    "Token Called At: " + time;
+}
+
 function updateClock() {
-  const now = new Date();
+  let now = new Date();
   document.getElementById("currentTime").innerText =
     "Current Time: " + now.toLocaleTimeString();
 }
-setInterval(updateClock, 1000);
+
+setInterval(()=>{
+  loadData();
+  updateClock();
+},1000);
+
+loadData();
 updateClock();
-
-// When token changes
-function updateToken() {
-  currentToken++;
-
-  document.getElementById("token").innerText = currentToken;
-
-  const now = new Date();
-  document.getElementById("tokenTime").innerText =
-    "Token Called At: " + now.toLocaleTimeString();
-
-  // Next tokens preview
-  document.getElementById("nextTokens").innerText =
-    "Next: " + (currentToken + 1) + ", " + (currentToken + 2) + ", " + (currentToken + 3);
-
-  // Waiting count (fake simulation)
-  document.getElementById("waiting").innerText =
-    "Waiting: " + Math.floor(Math.random() * 20) + " people";
-
-  // 🔊 Voice announcement
-  const msg = new SpeechSynthesisUtterance("Token " + currentToken + " please proceed");
-  speechSynthesis.speak(msg);
-}
-
-// Auto update every 8 seconds (simulation)
-setInterval(updateToken, 8000);
 </script>
 
 </body>
