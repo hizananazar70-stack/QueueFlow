@@ -6,52 +6,103 @@
 
 <style>
 body {
-  font-family: 'Segoe UI';
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
-  background: linear-gradient(135deg,#f5f7fa,#c3cfe2);
-  display:flex;justify-content:center;align-items:center;height:100vh;
+  margin: 0;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
+
+/* Back Button */
+.back {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: #636e72;
+  text-decoration: none;
+  font-size: 14px;
+}
+.back:hover { color: black; }
+
 .card {
-  background:white;padding:40px;border-radius:20px;width:350px;
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 400px;
 }
+
+h1 { color: #2d3436; }
+
 input {
-  width:100%;padding:15px;margin-bottom:15px;border-radius:10px;border:1px solid #ccc;
+  width: 100%;
+  padding: 15px;
+  margin: 20px 0;
+  border: 2px solid #eee;
+  border-radius: 12px;
+  font-size: 16px;
 }
+
 button {
-  width:100%;padding:15px;background:#28a745;color:white;border:none;border-radius:10px;
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  border: none;
+  border-radius: 12px;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover { background-color: #218838; }
+
+.result {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #2d3436;
 }
 </style>
 </head>
 
 <body>
 
+<a href="index.html" class="back">← Back</a>
+
 <div class="card">
-  <h2>Join Queue</h2>
-  <input type="text" id="name" placeholder="Enter Name">
-  <button onclick="getToken()">Get Token</button>
-  <p id="result"></p>
+  <h1>Join Queue</h1>
+
+  <input type="text" id="userName" placeholder="Enter Your Name">
+  <button onclick="getToken()">Get My Token</button>
+
+  <div class="result" id="result"></div>
 </div>
 
 <script>
 function getToken() {
-  let name = document.getElementById("name").value;
+  const name = document.getElementById('userName').value;
 
   if (!name) {
-    alert("Enter name");
+    alert("Please enter your name!");
     return;
   }
 
   let lastToken = localStorage.getItem("lastToken") || 100;
   lastToken = parseInt(lastToken) + 1;
 
+  // Save token
   localStorage.setItem("lastToken", lastToken);
 
+  // Save queue list
   let queue = JSON.parse(localStorage.getItem("queue")) || [];
-  queue.push({name:name, token:lastToken});
+  queue.push({ name: name, token: lastToken });
   localStorage.setItem("queue", JSON.stringify(queue));
 
   document.getElementById("result").innerHTML =
-    "Your Token: <b>" + lastToken + "</b>";
+    `Hi <b>${name}</b>, Your Token Number is <b>${lastToken}</b>`;
 }
 </script>
 
