@@ -1,72 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Live Display | QueueFlow</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      text-align: center;
-      margin: 0;
-      background-color: #121212; /* Deep Dark */
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+<meta charset="UTF-8">
+<title>Live Display | QueueFlow</title>
 
-    h1 {
-      font-size: 2.5rem;
-      letter-spacing: 3px;
-      color: #888;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
+<style>
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  background-color: #121212;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-    .token-container {
-      background: #1e1e1e;
-      border: 3px solid #007bff;
-      border-radius: 30px;
-      padding: 50px 100px;
-      box-shadow: 0 0 50px rgba(0, 123, 255, 0.2);
-    }
+h1 {
+  font-size: 2.5rem;
+  letter-spacing: 3px;
+  color: #888;
+  margin-bottom: 10px;
+}
 
-    .now-serving {
-      font-size: 24px;
-      color: #555;
-      font-weight: bold;
-      margin-bottom: -10px;
-    }
+.token-container {
+  background: #1e1e1e;
+  border: 3px solid #007bff;
+  border-radius: 30px;
+  padding: 40px 80px;
+  box-shadow: 0 0 50px rgba(0, 123, 255, 0.2);
+}
 
-    .token-number {
-      font-size: 220px;
-      font-weight: 900;
-      color: #007bff;
-      margin: 0;
-      text-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
-    }
+.now-serving {
+  font-size: 22px;
+  color: #777;
+}
 
-    .home-btn {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      color: #444;
-      text-decoration: none;
-      font-size: 14px;
-      transition: 0.3s;
-    }
+.token-number {
+  font-size: 180px;
+  font-weight: 900;
+  color: #007bff;
+  margin: 0;
+}
 
-    .home-btn:hover { color: #fff; }
-  </style>
+.time-info {
+  margin-top: 15px;
+  color: #aaa;
+  font-size: 18px;
+}
+
+.extra-info {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #ccc;
+}
+</style>
+
 </head>
+
 <body>
-  <a href="index.html" class="home-btn">← Home</a>
-  <h1>Status Board</h1>
-  <div class="token-container">
-    <div class="now-serving">NOW SERVING</div>
-    <p class="token-number">104</p>
+
+<h1>Status Board</h1>
+
+<div class="token-container">
+  <div class="now-serving">NOW SERVING</div>
+  <p id="token" class="token-number">101</p>
+
+  <div class="time-info">
+    <p id="currentTime"></p>
+    <p id="tokenTime"></p>
   </div>
+
+  <div class="extra-info">
+    <p id="nextTokens"></p>
+    <p id="waiting"></p>
+  </div>
+</div>
+
+<script>
+let currentToken = 101;
+
+// Update live clock
+function updateClock() {
+  const now = new Date();
+  document.getElementById("currentTime").innerText =
+    "Current Time: " + now.toLocaleTimeString();
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// When token changes
+function updateToken() {
+  currentToken++;
+
+  document.getElementById("token").innerText = currentToken;
+
+  const now = new Date();
+  document.getElementById("tokenTime").innerText =
+    "Token Called At: " + now.toLocaleTimeString();
+
+  // Next tokens preview
+  document.getElementById("nextTokens").innerText =
+    "Next: " + (currentToken + 1) + ", " + (currentToken + 2) + ", " + (currentToken + 3);
+
+  // Waiting count (fake simulation)
+  document.getElementById("waiting").innerText =
+    "Waiting: " + Math.floor(Math.random() * 20) + " people";
+
+  // 🔊 Voice announcement
+  const msg = new SpeechSynthesisUtterance("Token " + currentToken + " please proceed");
+  speechSynthesis.speak(msg);
+}
+
+// Auto update every 8 seconds (simulation)
+setInterval(updateToken, 8000);
+</script>
+
 </body>
 </html>
